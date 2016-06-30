@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import asyncapp.tornado.alex.asyncapp.event.ActionEvent;
@@ -36,11 +37,11 @@ public class RestInteractionWorker {
         restInterface.listUsers()
                 .subscribeOn(Schedulers.newThread())
                 .timeout(30, TimeUnit.SECONDS)
-                .map(new Func1<User, ActionEvent>() {
+                .map(new Func1<List<User>, ActionEvent>() {
                     @NonNull
                     @Override
-                    public ActionEvent call(User user) {
-                        return new ActionEvent(true, user.getLogin());
+                    public ActionEvent call(List<User> users) {
+                        return new ActionEvent(true, users.get(0).getLogin());
                     }
                 })
                 .onErrorReturn(new Func1<Throwable, ActionEvent>() {

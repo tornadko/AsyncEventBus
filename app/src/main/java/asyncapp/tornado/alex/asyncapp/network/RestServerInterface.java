@@ -1,5 +1,7 @@
 package asyncapp.tornado.alex.asyncapp.network;
 
+import java.util.List;
+
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -9,5 +11,5 @@ import rx.Observable;
 public interface RestServerInterface {
 
     @GET("users")
-    Observable<User> listUsers();
+    Observable<List<User>> listUsers();
 }
